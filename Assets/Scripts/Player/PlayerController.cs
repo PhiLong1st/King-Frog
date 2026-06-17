@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private bool _isJumpCharging;
   [SerializeField] private float _jumpChargeTime = 0f;
 
+  private float _lastJumpForce;
+
   private void Awake()
   {
     _rigidbody = GetComponent<Rigidbody2D>();
@@ -25,6 +27,7 @@ public class PlayerController : MonoBehaviour
     _isGrounded = false;
     _isJumpCharging = false;
     _jumpChargeTime = 0f;
+    _lastJumpForce = 0f;
   }
 
   private void OnEnable()
@@ -89,6 +92,12 @@ public class PlayerController : MonoBehaviour
       _isGrounded = true;
       _rigidbody.linearVelocity = Vector2.zero;
     }
+
+    if (collision.gameObject.CompareTag(TagConstant.Wall))
+    {
+      Flip();
+      Jump(_lastJumpForce);
+    }
   }
 
   private void OnCollisionExit2D(Collision2D collision)
@@ -101,6 +110,7 @@ public class PlayerController : MonoBehaviour
 
   private void Jump(float jumpForce)
   {
+    _lastJumpForce = jumpForce;
 
     Vector2 direction = CalculateJumpDirection();
     _rigidbody.AddForce(direction * jumpForce, ForceMode2D.Impulse);
@@ -127,7 +137,9 @@ public class PlayerController : MonoBehaviour
 
   private Vector2 CalculateJumpDirection()
   {
-    return _isFacingRight ? new Vector2(1, 1) : new Vector2(-1, 1);
+    int xDirection = _isFacingRight ? 1 : -1;
+    Vector2 jumpDirection = new Vector2(xDirection, 1);
+    return jumpDirection;
   }
 
   private void Reset()
@@ -141,4 +153,6 @@ public class PlayerController : MonoBehaviour
  * Prevent double jump: done
  * Detect ground contact: done
  * Variable jump height
+ * Add jump charge time and multiplier to increase jump force: done
+ * Add jump direction based on facing direction: 
  */

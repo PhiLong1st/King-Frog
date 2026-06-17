@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b63d06d051ef491338e562186389a92f, type: 3}
   m_Name: JumpConfig
   m_EditorClassIdentifier: Assembly-CSharp::JumpConfig
-  jumpForce: 1
+  jumpForce: 2.5
   jumpForceMultiplier: 1
-  jumpChargeTime: 0
-  maxJumpChargeTime: 4
+  maxJumpChargeTime: 3

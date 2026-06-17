@@ -12,11 +12,19 @@ public class JumpState : IState
     _stateMachine = stateMachine;
   }
 
+  private bool _isAppliedFallAnimation = false;
+
   public void OnEnter()
   {
-    _player.ShowAnimation(PlayerAnimation.Jump);
+    _player.ShowAnimation(AnimationConstants.JumpTrigger);
+
+    float jumpForce = CalculateJumpForce();
+    Vector2 jumpDirection = CalculateJumpDirection();
+    Vector2 jumpVelocity = jumpDirection * jumpForce;
+    _player.Jump(jumpVelocity);
 
     _player.OnPlayerCollision += HandleCollision;
+    _isAppliedFallAnimation = false;
   }
 
   public void FixedUpdate()
@@ -26,6 +34,13 @@ public class JumpState : IState
 
   public void Update()
   {
+    if (_player.IsFalling && !_isAppliedFallAnimation)
+    {
+      _player.HideAnimation(AnimationConstants.JumpTrigger);
+      _player.ShowAnimation(AnimationConstants.FallTrigger);
+      _isAppliedFallAnimation = true;
+    }
+
     if (_player.IsGrounded)
     {
       _stateMachine.TransitionTo(PlayerStateEnum.Idle);
@@ -54,10 +69,23 @@ public class JumpState : IState
     _player.Jump(jumpVelocity);
   }
 
+  private float CalculateJumpForce()
+  {
+    return _player.JumpConfig.jumpForce + (_player.JumpChargeTime * _player.JumpConfig.jumpForceMultiplier);
+  }
+
+  private Vector2 CalculateJumpDirection()
+  {
+    int xDirection = _player.IsFacingRight ? 1 : -1;
+    Vector2 jumpDirection = new Vector2(xDirection, 1);
+    return jumpDirection;
+  }
+
   public void OnExit()
   {
     _player.StopMovement();
-    _player.HideAnimation(PlayerAnimation.Jump);
     _player.OnPlayerCollision -= HandleCollision;
+    // _player.HideAnimation(AnimationConstants.JumpTrigger);
+    _player.HideAnimation(AnimationConstants.FallTrigger);
   }
 }

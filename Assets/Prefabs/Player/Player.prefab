@@ -138,7 +138,6 @@ GameObject:
   - component: {fileID: 1615936311059948123}
   - component: {fileID: 5252582231027578888}
   - component: {fileID: 8858840737454616768}
-  - component: {fileID: 7972497970721828039}
   - component: {fileID: 3717443051977578266}
   - component: {fileID: 4623650640021577939}
   m_Layer: 0
@@ -236,29 +235,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!95 &7972497970721828039
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8654684513155454100}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fc59c8a28ef038529972ec9bbc5bdb5e, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_Constraints: 4
 --- !u!114 &3717443051977578266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +251,7 @@ MonoBehaviour:
   _playerInput: {fileID: 4623650640021577939}
   _jumpConfig: {fileID: 11400000, guid: c25afe9bf5b07a78eb0ed21bca04b397, type: 2}
   _isGrounded: 0
+  _isFacingRight: 0
 --- !u!114 &4623650640021577939
 MonoBehaviour:
   m_ObjectHideFlags: 0

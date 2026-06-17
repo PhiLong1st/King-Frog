@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
   private PlayerView _view;
   private StateMachine _stateMachine;
 
+  public float JumpChargeTime { get; set; }
+
   private Vector2 _lastJumpForce;
   public Vector2 LastJumpForce => _lastJumpForce;
 
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
   private void Awake()
   {
     _rigidbody = GetComponent<Rigidbody2D>();
-    _view = GetComponent<PlayerView>();
+    _view = GetComponentInChildren<PlayerView>();
     _playerInput = GetComponent<PlayerInput>();
   }
 
@@ -41,7 +43,6 @@ public class PlayerController : MonoBehaviour
     _isGrounded = false;
     _isFacingRight = true;
     _stateMachine = new StateMachine(this);
-
     _lastJumpForce = Vector2.zero;
   }
 
@@ -61,11 +62,6 @@ public class PlayerController : MonoBehaviour
 
   private void Update()
   {
-    if (!_isGrounded)
-    {
-      return;
-    }
-
     _stateMachine.Update();
   }
 
@@ -86,14 +82,14 @@ public class PlayerController : MonoBehaviour
     _rigidbody.AddForce(jumpVelocity, ForceMode2D.Impulse);
   }
 
-  public void ShowAnimation(PlayerAnimation playerAnimation)
+  public void ShowAnimation(string trigger)
   {
-    // TODO: implement this method to show the specified animation
+    _view.ShowAnimation(trigger);
   }
 
-  public void HideAnimation(PlayerAnimation playerAnimation)
+  public void HideAnimation(string trigger)
   {
-    // TODO: implement this method to hide the specified animation
+    _view.HideAnimation(trigger);
   }
 
   public void StopMovement()

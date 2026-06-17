@@ -57,5 +57,6 @@ public class StateMachine
     }
 
     CurrentState.Update();
+    Debug.Log($"Current State: {_stateKey}");
   }
 }

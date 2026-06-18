@@ -4,8 +4,9 @@ using UnityEditor;
 
 public class SceneLoader : MonoBehaviour
 {
-  private const string MainMenuSceneName = "MainMenuScene";
-  private const string GameplaySceneName = "GameplayScene";
+  public const string MainMenuSceneName = "MainMenuScene";
+  public const string GameplaySceneName = "GameplayScene";
+  public const string LoadingSceneName = "LoadingScene";
 
   public void ReloadCurrentScene()
   {

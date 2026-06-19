@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoadingSlider
   _percentageText: {fileID: 4003807879612131896}
   _loadingText: {fileID: 5657878687492036589}
-  _loadingSpeed: 0.0374
+  _loadingSpeed: 0.07
   _timeThreshold: 0.2
   _progressValues:
   - 0
@@ -189,11 +189,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 31095641393543882, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -80
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 31095641393543882, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 31095641393543882, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -229,7 +229,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 31095641393543882, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 31095641393543882, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

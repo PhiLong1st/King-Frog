@@ -46,16 +46,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3385a81af8d64ecffbe4e33fdf8bea23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
-  musicSource: {fileID: 4816384230700031863}
-  sfxSource: {fileID: 2012433936738746661}
-  audioSFXClips:
+  _musicSource: {fileID: 4816384230700031863}
+  _sfxSource: {fileID: 2012433936738746661}
+  _audioSFXClips:
   - key: 0
     clip: {fileID: 8300000, guid: bf3986364f656df59adbdcee62ce57fa, type: 3}
-  audioMusicClips:
+  _audioMusicClips:
   - key: 0
     clip: {fileID: 8300000, guid: 134669238b6cce1f68d454d5cf660fac, type: 3}
-  musicVolume: 1
-  sfxVolume: 1
+  _musicVolume: 1
+  _sfxVolume: 1
 --- !u!1 &6487833133978275403
 GameObject:
   m_ObjectHideFlags: 0

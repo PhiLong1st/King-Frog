@@ -151,20 +151,19 @@ MonoBehaviour:
   _slider: {fileID: 1533218583753171665}
   _percentageText: {fileID: 4003807879612131896}
   _loadingText: {fileID: 5657878687492036589}
-  _overlayBackground: {fileID: 4189171449669410971}
   _loadingSceneCanvasGroup: {fileID: 2657165302143209073}
-  _loadingSpeed: 0.07
-  _timeThreshold: 0.2
+  _loadingSpeed: 0.76
+  _timeThreshold: 0.3
   _progressValues:
   - 0
-  - 0.25
-  - 0.34
+  - 0.15
+  - 0.3
   - 0.5
-  - 0.66
-  - 0.79
-  - 0.92
+  - 0.68
+  - 0.82
+  - 0.95
   _fadeOutDuration: 1
-  _fadeInDuration: 1
+  _fadeInDuration: 0.6
 --- !u!1001 &5960683108000789331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -255,7 +254,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_text
-      value: Loading
+      value: Loading Complete
+      objectReference: {fileID: 0}
+    - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
+      propertyPath: m_fontSize
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_fontAsset
@@ -274,8 +277,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8635184195200187979, guid: a784fc292a798e379a254a38c5df6623, type: 2}
     - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 4278240255
+      objectReference: {fileID: 0}
+    - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4956714426307686432, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_AnchorMax.x

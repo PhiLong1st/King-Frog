@@ -9,7 +9,7 @@ public abstract class BaseScene : MonoBehaviour
 
   public bool IsReady { get; protected set; }
 
-  private void Awake()
+  protected virtual void Awake()
   {
     _canvas ??= GetComponentInChildren<Canvas>();
   }
@@ -33,6 +33,4 @@ public abstract class BaseScene : MonoBehaviour
   public abstract IEnumerator AnimateLoad();
 
   public abstract IEnumerator AnimateUnload();
-
-  
 }

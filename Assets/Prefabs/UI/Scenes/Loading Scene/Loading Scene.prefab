@@ -134,7 +134,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &8309559954703368869
 MonoBehaviour:
@@ -255,7 +255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_text
-      value: Loading Complete!
+      value: Loading
       objectReference: {fileID: 0}
     - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_fontAsset
@@ -291,7 +291,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5188023183326597506, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_Value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6200065995304942461, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_Color.b

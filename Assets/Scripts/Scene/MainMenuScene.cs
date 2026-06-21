@@ -18,18 +18,18 @@ public class MainMenuScene : BaseScene
     _mainMenuCanvasGroup.alpha = 0f;
   }
 
-  private void Update()
-  {
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
-      StartCoroutine(AnimateLoad());
-    }
+  // private void Update()
+  // {
+  //   if (Input.GetKeyDown(KeyCode.Space))
+  //   {
+  //     StartCoroutine(AnimateLoad());
+  //   }
 
-    if (Input.GetKeyDown(KeyCode.Escape))
-    {
-      StartCoroutine(AnimateUnload());
-    }
-  }
+  //   if (Input.GetKeyDown(KeyCode.Escape))
+  //   {
+  //     StartCoroutine(AnimateUnload());
+  //   }
+  // }
 
   public override IEnumerator AnimateLoad()
   {

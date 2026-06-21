@@ -42,8 +42,8 @@ public class SceneLoader : MonoBehaviour
 
   private void Start()
   {
-    Debug.Log("SceneLoader: Start called. Loading MainMenuScene.");
-    StartCoroutine(SwitchScene(SceneName.MainMenuScene));
+    // Debug.Log("SceneLoader: Start called. Loading MainMenuScene.");
+    // StartCoroutine(SwitchScene(SceneName.MainMenuScene));
   }
 
   public IEnumerator SwitchScene(SceneName sceneName)
@@ -65,8 +65,8 @@ public class SceneLoader : MonoBehaviour
   private void OnLoadDataSuccess(UserData userData)
   {
     Debug.Log($"User ID: {userData.Id}, Name: {userData.Name}, Avatar URL: {userData.AvatarUrl}");
-    StartCoroutine(_loadingScene.AnimateUnload());
-    StartCoroutine(_currentScene.AnimateLoad());
+    // StartCoroutine(_loadingScene.AnimateUnload());
+    // StartCoroutine(_currentScene.AnimateLoad());
   }
 
   private void OnLoadDataFailure(string error)

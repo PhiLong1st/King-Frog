@@ -501,12 +501,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1653821439}
     m_Modifications:
     - target: {fileID: 1617161938055283571, guid: 66d8d8f2d46d6d421806f6f68c87ce64, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1617161938055283571, guid: 66d8d8f2d46d6d421806f6f68c87ce64, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657165302143209073, guid: 66d8d8f2d46d6d421806f6f68c87ce64, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2657165302143209073, guid: 66d8d8f2d46d6d421806f6f68c87ce64, type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4520585811486103121, guid: 66d8d8f2d46d6d421806f6f68c87ce64, type: 3}
       propertyPath: m_Pivot.x
@@ -745,6 +749,10 @@ PrefabInstance:
     - target: {fileID: 7628402043597517517, guid: 9b8ea3ec68e1d4f18b472134f9dd6cae, type: 3}
       propertyPath: m_Name
       value: MainMenu Scene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7628402043597517517, guid: 9b8ea3ec68e1d4f18b472134f9dd6cae, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

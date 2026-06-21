@@ -41,21 +41,20 @@ public class LoadingScene : BaseScene
   private float _timeElapsed = 0f;
   private int _currentIndex = 0;
   private float _targetProgress = 0f;
-  private bool _isChangingScene = false;
   private readonly string[] _animatedLoadingText = { "Loading", "Loading.", "Loading..", "Loading..." };
 
   private void Awake()
   {
-    if (_slider == null)
-      _slider = GetComponentInChildren<Slider>();
+    _slider ??= GetComponentInChildren<Slider>();
   }
 
   private void InitializeLoadingScene()
   {
-    _isChangingScene = false;
     _currentIndex = 0;
-    _timeElapsed = 0f;
     _targetProgress = _progressValues[_currentIndex];
+
+    _timeElapsed = 0f;
+
     _slider.value = 0f;
     _loadingText.text = "Loading";
     _percentageText.text = "0.0%";
@@ -64,7 +63,15 @@ public class LoadingScene : BaseScene
 
   private void Update()
   {
-    if (_isChangingScene) return;
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+      StartCoroutine(AnimateLoad());
+    }
+
+    if (Input.GetKeyDown(KeyCode.Escape))
+    {
+      StartCoroutine(AnimateUnload());
+    }
 
     SimulateProgress();
     UpdateUI();
@@ -79,10 +86,11 @@ public class LoadingScene : BaseScene
 
   public override IEnumerator AnimateUnload()
   {
-    Debug.Log("LoadingScene: AnimateUnload called.");
     _slider.value = 1f;
-    _isChangingScene = true;
+    _targetProgress = 1f;
     _loadingText.text = "Loading Complete!";
+    Debug.Log("LoadingScene: AnimateUnload called.");
+
     yield return FadeAnimation(1f, 0f, _fadeOutDuration);
   }
 
@@ -97,7 +105,7 @@ public class LoadingScene : BaseScene
 
     _timeElapsed -= _timeThreshold;
     _currentIndex = Mathf.Min(_currentIndex + 1, _progressValues.Length - 1);
-    _targetProgress = _progressValues[_currentIndex];
+    _targetProgress = Mathf.Max(_targetProgress, _progressValues[_currentIndex]);
   }
 
   private void UpdateUI()

@@ -1,31 +1,77 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEditor;
+using System;
+using System.Collections.Generic;
+using System.Collections;
+
+public enum SceneName
+{
+  MainMenuScene,
+}
+
+[Serializable]
+public class SceneData
+{
+  public SceneName SceneName;
+  public BaseScene Scene;
+}
 
 public class SceneLoader : MonoBehaviour
 {
-  public const string MainMenuSceneName = "MainMenuScene";
-  public const string GameplaySceneName = "GameplayScene";
-  public const string LoadingSceneName = "LoadingScene";
+  [SerializeField] private SceneData[] _scenes;
+  [SerializeField] private BaseScene _loadingScene;
+  private Dictionary<SceneName, BaseScene> _sceneDictionary;
 
-  public void ReloadCurrentScene()
+  private BaseScene _currentScene;
+
+  private void Awake()
   {
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    _sceneDictionary = new();
+
+    foreach (var sceneData in _scenes)
+    {
+      if (_sceneDictionary.ContainsKey(sceneData.SceneName))
+      {
+        Debug.LogWarning($"Duplicate scene name detected: {sceneData.SceneName}. Skipping this entry.");
+        continue;
+      }
+
+      _sceneDictionary.Add(sceneData.SceneName, sceneData.Scene);
+    }
   }
 
-  public void LoadScene(string sceneName)
+  private void Start()
   {
-    SceneManager.LoadScene(sceneName);
+    Debug.Log("SceneLoader: Start called. Loading MainMenuScene.");
+    StartCoroutine(SwitchScene(SceneName.MainMenuScene));
   }
 
-  public void LoadMainMenuScene()
+  public IEnumerator SwitchScene(SceneName sceneName)
   {
-    LoadScene(MainMenuSceneName);
+    var isSceneExists = _sceneDictionary.TryGetValue(sceneName, out var newScene);
+    if (!isSceneExists)
+    {
+      Debug.LogError($"Scene '{sceneName}' not found in the scene dictionary.");
+      yield return null;
+    }
+
+    if (_currentScene is not null) StartCoroutine(_currentScene?.AnimateUnload());
+    StartCoroutine(_loadingScene.AnimateLoad());
+
+    _currentScene = newScene;
+    yield return ApiClient.Instance.GetUserByIdAsync("1", OnLoadDataSuccess, OnLoadDataFailure);
   }
 
-  public void LoadGamePlayScene()
+  private void OnLoadDataSuccess(UserData userData)
   {
-    LoadScene(GameplaySceneName);
+    Debug.Log($"User ID: {userData.Id}, Name: {userData.Name}, Avatar URL: {userData.AvatarUrl}");
+    StartCoroutine(_loadingScene.AnimateUnload());
+    StartCoroutine(_currentScene.AnimateLoad());
+  }
+
+  private void OnLoadDataFailure(string error)
+  {
+    Debug.LogError($"Failed to load data: {error}");
   }
 
   public void Exit()

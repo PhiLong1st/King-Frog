@@ -30,12 +30,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4520585811486103121}
+  m_Father: {fileID: 5969205637062445465}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 480}
+  m_SizeDelta: {x: 100, y: 1030}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4367256686153253574
 CanvasRenderer:
@@ -105,7 +105,6 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6141309315535684256}
   - {fileID: 5969205637062445465}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -149,8 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf37e5434c08c71a7ad75f7c5b8bd338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoadingSlider
+  _slider: {fileID: 1533218583753171665}
   _percentageText: {fileID: 4003807879612131896}
   _loadingText: {fileID: 5657878687492036589}
+  _overlayBackground: {fileID: 4189171449669410971}
+  _loadingSceneCanvasGroup: {fileID: 2657165302143209073}
   _loadingSpeed: 0.07
   _timeThreshold: 0.2
   _progressValues:
@@ -161,10 +163,8 @@ MonoBehaviour:
   - 0.66
   - 0.79
   - 0.92
-  _slider: {fileID: 1533218583753171665}
-  _overlayBackground: {fileID: 4189171449669410971}
-  _loadingSceneCanvasGroup: {fileID: 2657165302143209073}
-  fadeDuration: 0.6
+  _fadeOutDuration: 1
+  _fadeInDuration: 1
 --- !u!1001 &5960683108000789331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -254,6 +254,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
+      propertyPath: m_text
+      value: Loading Complete!
+      objectReference: {fileID: 0}
+    - target: {fileID: 2034583612773999806, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: a784fc292a798e379a254a38c5df6623, type: 2}
@@ -302,6 +306,10 @@ PrefabInstance:
       value: 0.21176471
       objectReference: {fileID: 0}
     - target: {fileID: 7289352769058511211, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
+      propertyPath: m_text
+      value: 0.0%
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289352769058511211, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: a784fc292a798e379a254a38c5df6623, type: 2}
@@ -323,7 +331,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 31095641393543882, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6141309315535684256}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5153942966990107302, guid: 71d16c2a8cce577fea40f05b8c8159e5, type: 3}
       insertIndex: -1
@@ -342,7 +353,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530909855280234997}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0

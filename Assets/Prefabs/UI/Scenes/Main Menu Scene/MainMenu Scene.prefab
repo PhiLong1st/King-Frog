@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuScene
   _fadeInDuration: 1
   _fadeOutDuration: 1
-  _mainMenuCanvasGroup: {fileID: 6429256473552478719}
+  _canvasGroup: {fileID: 6429256473552478719}
 --- !u!1001 &1567824928098059964
 PrefabInstance:
   m_ObjectHideFlags: 0

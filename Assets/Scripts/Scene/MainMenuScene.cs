@@ -11,11 +11,11 @@ public class MainMenuScene : BaseScene
   [SerializeField] private float _fadeOutDuration = 1f;
 
   [Tooltip("CanvasGroup for the main menu scene, used to control its visibility and interactivity.")]
-  [SerializeField] private CanvasGroup _mainMenuCanvasGroup;
+  [SerializeField] private CanvasGroup _canvasGroup;
 
   private void Start()
   {
-    _mainMenuCanvasGroup.alpha = 0f;
+    _canvasGroup.alpha = 0f;
   }
 
   // private void Update()
@@ -35,45 +35,25 @@ public class MainMenuScene : BaseScene
   {
     Debug.Log("MainMenuScene: AnimateLoad called.");
     AudioManager.Instance.PlayMusic(AudioMusicEnum.MainMenuMusic);
-    yield return StartCoroutine(AnimateEnter());
+
+    IEnumerator fadeInCoroutine = AnimationUtils.FadeAnimation(0f, 1f, _fadeInDuration, alpha =>
+    {
+      AudioManager.Instance.SetMusicVolume(alpha);
+      _canvasGroup.alpha = alpha;
+    });
+    yield return StartCoroutine(fadeInCoroutine);
   }
 
   public override IEnumerator AnimateUnload()
   {
     Debug.Log("MainMenuScene: AnimateUnload called.");
-    AudioManager.Instance.StopMusic();
-    yield return StartCoroutine(AnimateExit());
-  }
 
-  private IEnumerator AnimateEnter()
-  {
-    float elapsedTime = 0f;
-    while (elapsedTime < _fadeInDuration)
+    IEnumerator fadeOutCoroutine = AnimationUtils.FadeAnimation(1f, 0f, _fadeOutDuration, alpha =>
     {
-      elapsedTime += Time.deltaTime;
+      AudioManager.Instance.SetMusicVolume(alpha);
+      _canvasGroup.alpha = alpha;
+    });
 
-      float alpha = Mathf.Clamp01(elapsedTime / _fadeInDuration);
-      _mainMenuCanvasGroup.alpha = alpha;
-
-      yield return null;
-    }
-
-    _mainMenuCanvasGroup.alpha = 1f;
-  }
-
-  private IEnumerator AnimateExit()
-  {
-    float elapsedTime = _fadeOutDuration;
-    while (elapsedTime > 0f)
-    {
-      elapsedTime -= Time.deltaTime;
-
-      float alpha = Mathf.Clamp01(elapsedTime / _fadeOutDuration);
-      _mainMenuCanvasGroup.alpha = alpha;
-
-      yield return null;
-    }
-
-    _mainMenuCanvasGroup.alpha = 0f;
+    yield return StartCoroutine(fadeOutCoroutine);
   }
 }

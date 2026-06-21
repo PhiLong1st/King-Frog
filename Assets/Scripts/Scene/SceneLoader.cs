@@ -46,6 +46,15 @@ public class SceneLoader : MonoBehaviour
     // StartCoroutine(SwitchScene(SceneName.MainMenuScene));
   }
 
+  private void Update()
+  {
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+      Debug.Log("Space key pressed. Switching to MainMenuScene.");
+      StartCoroutine(SwitchScene(SceneName.MainMenuScene));
+    }
+  }
+
   public IEnumerator SwitchScene(SceneName sceneName)
   {
     var isSceneExists = _sceneDictionary.TryGetValue(sceneName, out var newScene);
@@ -55,18 +64,33 @@ public class SceneLoader : MonoBehaviour
       yield return null;
     }
 
-    if (_currentScene is not null) StartCoroutine(_currentScene?.AnimateUnload());
-    StartCoroutine(_loadingScene.AnimateLoad());
+    yield return StartCoroutine(UnloadTransition());
 
-    _currentScene = newScene;
     yield return ApiClient.Instance.GetUserByIdAsync("1", OnLoadDataSuccess, OnLoadDataFailure);
+    _currentScene = newScene;
+
+    yield return StartCoroutine(LoadTransition());
+  }
+
+  private IEnumerator UnloadTransition()
+  {
+    if (_currentScene != null)
+    {
+      yield return StartCoroutine(_currentScene.AnimateUnload());
+    }
+
+    yield return StartCoroutine(_loadingScene.AnimateLoad());
+  }
+
+  private IEnumerator LoadTransition()
+  {
+    yield return StartCoroutine(_loadingScene.AnimateUnload());
+    yield return StartCoroutine(_currentScene.AnimateLoad());
   }
 
   private void OnLoadDataSuccess(UserData userData)
   {
     Debug.Log($"User ID: {userData.Id}, Name: {userData.Name}, Avatar URL: {userData.AvatarUrl}");
-    // StartCoroutine(_loadingScene.AnimateUnload());
-    // StartCoroutine(_currentScene.AnimateLoad());
   }
 
   private void OnLoadDataFailure(string error)

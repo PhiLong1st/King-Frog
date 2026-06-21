@@ -31,9 +31,6 @@ public class ApiClient : Singleton<ApiClient>
         string jsonResponse = webRequest.downloadHandler.text;
         var userData = JsonConvert.DeserializeObject<UserData>(jsonResponse);
 
-        // Simulate network delay for demonstration purposes
-        System.Threading.Thread.Sleep(2000);
-
         onSuccess?.Invoke(userData);
       }
       else

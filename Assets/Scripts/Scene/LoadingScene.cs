@@ -29,11 +29,14 @@ public class LoadingScene : BaseScene
   [SerializeField] private float[] _progressValues;
 
   [Header("Fade Settings")]
-  [Tooltip("Time in seconds to wait before starting the fade-out.")]
+  [Tooltip("Time in seconds for the fade-out.")]
   [SerializeField] private float _fadeOutDuration;
 
-  [Tooltip("Time in seconds to wait before starting the fade-in.")]
+  [Tooltip("Time in seconds for the fade-in.")]
   [SerializeField] private float _fadeInDuration;
+
+  [Tooltip("Time in seconds to wait before starting the fade-out.")]
+  [SerializeField] private float _waitBeforeFadeOutDuration;
 
   private float _timeElapsed;
   private int _currentIndex;
@@ -67,28 +70,28 @@ public class LoadingScene : BaseScene
   public override IEnumerator AnimateLoad()
   {
     ResetState();
-    yield return FadeAnimation(0f, 1f, _fadeInDuration);
+
+    IEnumerator fadeInCoroutine = AnimationUtils.FadeAnimation(0f, 1f, _fadeInDuration, alpha =>
+    {
+      _loadingSceneCanvasGroup.alpha = alpha;
+    });
+
+    yield return StartCoroutine(fadeInCoroutine);
   }
 
   public override IEnumerator AnimateUnload()
   {
     _isLoadingComplete = true;
-    yield return new WaitForSeconds(0.5f);
-    yield return FadeAnimation(1f, 0f, _fadeOutDuration);
-  }
 
-  private IEnumerator FadeAnimation(float startAlpha, float targetAlpha, float duration)
-  {
-    float elapsedTime = 0f;
+    WaitForSeconds waitBeforeFadeOut = new WaitForSeconds(_waitBeforeFadeOutDuration);
+    yield return waitBeforeFadeOut;
 
-    while (elapsedTime < duration)
+    IEnumerator fadeOutCoroutine = AnimationUtils.FadeAnimation(1f, 0f, _fadeOutDuration, alpha =>
     {
-      elapsedTime += Time.deltaTime;
-      _loadingSceneCanvasGroup.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsedTime / duration);
-      yield return null;
-    }
+      _loadingSceneCanvasGroup.alpha = alpha;
+    });
 
-    _loadingSceneCanvasGroup.alpha = targetAlpha;
+    yield return StartCoroutine(fadeOutCoroutine);
   }
 
   private void ResetState()

@@ -30,7 +30,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 637483254918224527}
-  - {fileID: 6339410202412051245}
   - {fileID: 4101846856396216674}
   - {fileID: 9222097546911874208}
   - {fileID: 6486932763137442006}
@@ -314,153 +313,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5794135173805678533, guid: 3e9c202ee427fbddbb3f189f0be9de91, type: 3}
   m_PrefabInstance: {fileID: 751768842525351699}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2862919663518638850
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 2582547812115644317}
-    m_Modifications:
-    - target: {fileID: 2408151354089606481, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2408151354089606481, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2408151354089606481, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2408151354089606481, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Show
-      objectReference: {fileID: 0}
-    - target: {fileID: 2408151354089606481, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Panel, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2408151354089606481, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5313538343507136553, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_Name
-      value: Setting Button
-      objectReference: {fileID: 0}
-    - target: {fileID: 5313538343507136553, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6047772318501278915, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 3718842862631874603, guid: 39755b13203b5794da81dbe8128c8d14, type: 3}
-    - target: {fileID: 6047772318501278915, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_Color.b
-      value: 0.10849059
-      objectReference: {fileID: 0}
-    - target: {fileID: 6047772318501278915, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_Color.g
-      value: 0.7377654
-      objectReference: {fileID: 0}
-    - target: {fileID: 7355060054543820657, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_text
-      value: Setting
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 690
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 610
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 7225328460934539955, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d82525232b3a8af39990469eb00894eb, type: 3}
---- !u!224 &6339410202412051245 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8088809894691702831, guid: d82525232b3a8af39990469eb00894eb, type: 3}
-  m_PrefabInstance: {fileID: 2862919663518638850}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3428259552639214437
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -555,7 +407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7607886520244111299, guid: 3e9c202ee427fbddbb3f189f0be9de91, type: 3}
       propertyPath: m_Name
-      value: Continue Button
+      value: Setting Button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -657,7 +509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7607886520244111299, guid: 3e9c202ee427fbddbb3f189f0be9de91, type: 3}
       propertyPath: m_Name
-      value: Play Level Button
+      value: Play Button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

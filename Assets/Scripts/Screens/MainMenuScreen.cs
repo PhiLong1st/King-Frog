@@ -28,7 +28,7 @@ public class MainMenuScreen : Screen
     Tween loadingTween = _screenManager.ShowLoadingScene();
     loadingTween.Play();
 
-    AsyncOperation operation = ApiClient.Instance.GetUserByIdAsync("1", OnLoadDataSuccess, OnLoadDataFailure);
+    AsyncOperation operation = ApiClient.Instance.GetUserByIdAsync("1");
     yield return operation;
 
     Sequence inTransition = DOTween.Sequence();
@@ -60,29 +60,5 @@ public class MainMenuScreen : Screen
     return DOTween.Sequence()
       .Join(_canvasGroup.DOFade(0f, _fadeOutDuration))
       .Join(DOVirtual.Float(1f, 0f, _fadeOutDuration, v => AudioManager.Instance.SetMusicVolume(v)));
-  }
-
-  private void OnLoadDataSuccess(UserData userData)
-  {
-    if (userData == null)
-    {
-      Debug.LogWarning("MainMenuScreen: User data is null. Cannot set user information on the UI.");
-      return;
-    }
-
-    _userNameText.text = userData.Name;
-    _userIDText.text = $"ID: {userData.Id}";
-
-    StartCoroutine(ApiClient.Instance.DownloadImage(userData.AvatarUrl, texture =>
-    {
-      _userAvatarImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-    }));
-
-    Debug.Log($"MainMenuScreen: Successfully loaded user data. User ID: {userData.Id}, Name: {userData.Name}, Avatar URL: {userData.AvatarUrl}");
-  }
-
-  private void OnLoadDataFailure(string error)
-  {
-    Debug.LogError($"MainMenuScreen: Failed to load user data. Error: {error}");
   }
 }

@@ -4,23 +4,13 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class UserData
-{
-  [JsonProperty("id")]
-  public string Id { get; set; }
-
-  [JsonProperty("name")]
-  public string Name { get; set; }
-
-  [JsonProperty("avatarUrl")]
-  public string AvatarUrl { get; set; }
-}
-
 public class ApiClient : Singleton<ApiClient>
 {
+  [SerializeField] private PlayerDataSO _playerDataSO;
+
   private string _baseUrl = "https://6a3659e7766b831960f92698.mockapi.io";
 
-  public UnityWebRequestAsyncOperation GetUserByIdAsync(string userId, Action<UserData> onSuccess = null, Action<string> onError = null)
+  public UnityWebRequestAsyncOperation GetUserByIdAsync(string userId)
   {
     string url = $"{_baseUrl}/users/{userId}";
     UnityWebRequest webRequest = UnityWebRequest.Get(url);
@@ -31,13 +21,13 @@ public class ApiClient : Singleton<ApiClient>
       if (webRequest.result == UnityWebRequest.Result.Success)
       {
         string jsonResponse = webRequest.downloadHandler.text;
-        var userData = JsonConvert.DeserializeObject<UserData>(jsonResponse);
 
-        onSuccess?.Invoke(userData);
+        PlayerDataDto playerDataDto = JsonConvert.DeserializeObject<PlayerDataDto>(jsonResponse);
+        _playerDataSO.UpdateFromDto(playerDataDto);
       }
       else
       {
-        onError?.Invoke(webRequest.error);
+        Debug.LogError($"ApiClient: Failed to get user data. Error: {webRequest.error}");
       }
 
       webRequest.Dispose();

@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2015b7667dd9f958ff84334bc15015, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ApiClient
+  _playerDataSO: {fileID: 11400000, guid: 12be6a222ae1eeda69d12c804a5285a5, type: 2}

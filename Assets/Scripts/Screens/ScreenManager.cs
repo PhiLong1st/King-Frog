@@ -2,12 +2,11 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
-using DG.Tweening;
 
 public enum ScreenName
 {
   MainMenuScreen,
+  GameplayScreen,
 }
 
 [Serializable]
@@ -20,7 +19,6 @@ public class ScreenData
 public class ScreenManager : MonoBehaviour
 {
   [SerializeField] private ScreenData[] screenDatas;
-  [SerializeField] private LoadingScreen _loadingScreen;
   private Dictionary<ScreenName, Screen> _screenDictionary;
 
   private void Awake()
@@ -46,16 +44,6 @@ public class ScreenManager : MonoBehaviour
     OpenScreen(ScreenName.MainMenuScreen);
   }
 
-  public Tween ShowLoadingScene()
-  {
-    return _loadingScreen.AnimateLoad();
-  }
-
-  public Tween HideLoadingScene()
-  {
-    return _loadingScreen.AnimateUnload();
-  }
-
   public void OpenScreen(ScreenName screenName)
   {
     if (!_screenDictionary.TryGetValue(screenName, out var screen))
@@ -75,7 +63,7 @@ public class ScreenManager : MonoBehaviour
       return;
     }
 
-    screen.OnUnload();
+    StartCoroutine(screen.OnUnload());
   }
 
   public void Exit()

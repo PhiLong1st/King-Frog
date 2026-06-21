@@ -2,7 +2,7 @@ using UnityEngine;
 using DG.Tweening;
 using System.Collections;
 
-public class MainMenuScreen : Screen
+public class GameplayScreen : Screen
 {
   [Header("Fade Settings")]
   [Tooltip("Time in seconds to wait before starting the fade-in of the main menu.")]
@@ -11,33 +11,23 @@ public class MainMenuScreen : Screen
   [Tooltip("Time in seconds to wait before starting the fade-out of the main menu.")]
   [SerializeField] private float _fadeOutDuration;
 
-  [Header("Background Fade Settings")]
-  [SerializeField] private CanvasGroup _backgroundCanvasGroup;
+  [SerializeField] private GameObject _level;
 
-  public void OnPlayButtonClicked()
+  private void Update()
   {
-    StartCoroutine(OnUnload());
-    _screenManager.OpenScreen(ScreenName.GameplayScreen);
-  }
-
-  public void OnSettingsButtonClicked()
-  {
-    // Implement settings button functionality here
-  }
-
-  public void OnExitButtonClicked()
-  {
-    _screenManager.Exit();
+    if (Input.GetKeyDown(KeyCode.Escape))
+    {
+      StartCoroutine(OnUnload());
+      _screenManager.OpenScreen(ScreenName.MainMenuScreen);
+    }
   }
 
   public override IEnumerator OnLoad()
   {
-    AsyncOperation operation = ApiClient.Instance.GetUserByIdAsync("1");
-    yield return operation;
-
     Sequence inTransition = DOTween.Sequence();
     inTransition.Join(AnimateLoad());
 
+    _level.SetActive(true);
     yield return AnimateLoad().WaitForCompletion();
   }
 
@@ -47,15 +37,16 @@ public class MainMenuScreen : Screen
     outTransition.Join(AnimateUnload());
 
     yield return outTransition.WaitForCompletion();
+    _level.SetActive(false);
   }
 
   protected override Tween AnimateLoad()
   {
-    AudioManager.Instance.PlayMusic(AudioMusicEnum.MainMenuMusic);
-    _backgroundCanvasGroup.alpha = 1f;
+    AudioManager.Instance.PlayMusic(AudioMusicEnum.GameplayMusic);
 
     return DOTween.Sequence()
-      .Join(_canvasGroup.DOFade(1f, _fadeInDuration))
+      .Append(_canvasGroup.DOFade(1f, _fadeInDuration))
+      .Append(_canvasGroup.DOFade(0f, _fadeOutDuration))
       .Join(DOVirtual.Float(0f, 1f, _fadeInDuration, v => AudioManager.Instance.SetMusicVolume(v)));
   }
 
@@ -63,7 +54,6 @@ public class MainMenuScreen : Screen
   {
     return DOTween.Sequence()
       .Join(_canvasGroup.DOFade(0f, _fadeOutDuration))
-      .Join(_backgroundCanvasGroup.DOFade(0f, _fadeOutDuration))
       .Join(DOVirtual.Float(1f, 0f, _fadeOutDuration, v => AudioManager.Instance.SetMusicVolume(v)));
   }
 }

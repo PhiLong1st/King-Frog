@@ -49,5 +49,8 @@ TagManager:
   - name: Map
     uniqueID: 175015095
     locked: 0
+  - name: Player
+    uniqueID: 918085633
+    locked: 0
   m_RenderingLayers:
   - Default

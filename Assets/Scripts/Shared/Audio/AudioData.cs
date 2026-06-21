@@ -9,6 +9,7 @@ public enum AudioSFXEnum
 public enum AudioMusicEnum
 {
   MainMenuMusic,
+  GameplayMusic,
 }
 
 [Serializable]

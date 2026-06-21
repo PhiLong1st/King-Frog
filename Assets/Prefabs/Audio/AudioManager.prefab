@@ -54,6 +54,8 @@ MonoBehaviour:
   _audioMusicClips:
   - key: 0
     clip: {fileID: 8300000, guid: 134669238b6cce1f68d454d5cf660fac, type: 3}
+  - key: 1
+    clip: {fileID: 8300000, guid: db46fb2a7bf425d46bc0ff46d312295d, type: 3}
   _musicVolume: 1
   _sfxVolume: 1
 --- !u!1 &6487833133978275403

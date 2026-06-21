@@ -1,6 +1,8 @@
 using UnityEngine.Networking;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
+using UnityEngine;
 
 public class UserData
 {
@@ -42,5 +44,24 @@ public class ApiClient : Singleton<ApiClient>
     };
 
     return operation;
+  }
+
+  public IEnumerator DownloadImage(string imagUrl, Action<Texture2D> onSuccess = null, Action<string> onError = null)
+  {
+    UnityWebRequest webRequest = UnityWebRequestTexture.GetTexture(imagUrl);
+
+    yield return webRequest.SendWebRequest();
+
+    if (webRequest.result == UnityWebRequest.Result.Success)
+    {
+      Texture2D texture = DownloadHandlerTexture.GetContent(webRequest);
+      onSuccess?.Invoke(texture);
+    }
+    else
+    {
+      onError?.Invoke(webRequest.error);
+    }
+
+    webRequest.Dispose();
   }
 }

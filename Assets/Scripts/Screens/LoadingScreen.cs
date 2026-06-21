@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using TMPro;
 using DG.Tweening;
 
-public class LoadingScene : BaseScreen
+public class LoadingScreen : MonoBehaviour
 {
   [Header("UI References")]
   [Tooltip("Slider component representing the loading progress.")]
@@ -44,9 +45,8 @@ public class LoadingScene : BaseScreen
   private readonly string[] _animatedLoadingText = { "Loading", "Loading.", "Loading..", "Loading..." };
   private bool _isLoadingComplete;
 
-  protected override void Awake()
+  private void Awake()
   {
-    base.Awake();
     _slider ??= GetComponentInChildren<Slider>();
   }
 
@@ -57,15 +57,17 @@ public class LoadingScene : BaseScreen
     UpdateLoadingText();
   }
 
-  public override Tween AnimateLoad()
+  public Tween AnimateLoad()
   {
     ResetState();
-    return _loadingSceneCanvasGroup.DOFade(1f, _fadeInDuration);
+    Tween fadeInTween = _loadingSceneCanvasGroup.DOFade(1f, _fadeInDuration);
+    return fadeInTween;
   }
 
-  public override Tween AnimateUnload()
+  public Tween AnimateUnload()
   {
     _isLoadingComplete = true;
+
     return DOTween.Sequence()
       .AppendInterval(_waitBeforeFadeOutDuration)
       .Append(_loadingSceneCanvasGroup.DOFade(0f, _fadeOutDuration));

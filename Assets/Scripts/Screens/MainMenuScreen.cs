@@ -1,25 +1,52 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections;
+using TMPro;
+using UnityEngine.UI;
 
-public class MainMenuScreen : BaseScreen
+public class MainMenuScreen : Screen
 {
+  [Header("Fade Settings")]
   [Tooltip("Time in seconds to wait before starting the fade-in of the main menu.")]
-  [SerializeField] private float _fadeInDuration = 1f;
+  [SerializeField] private float _fadeInDuration;
 
   [Tooltip("Time in seconds to wait before starting the fade-out of the main menu.")]
-  [SerializeField] private float _fadeOutDuration = 1f;
+  [SerializeField] private float _fadeOutDuration;
 
-  [Tooltip("CanvasGroup for the main menu screen, used to control its visibility and interactivity.")]
-  [SerializeField] private CanvasGroup _canvasGroup;
+  [Header("User Data UI References")]
+  [Tooltip("Text component to display the user's name.")]
+  [SerializeField] private TextMeshProUGUI _userNameText;
 
-  private void Start()
+  [Tooltip("Text component to display the user's ID.")]
+  [SerializeField] private TextMeshProUGUI _userIDText;
+
+  [Tooltip("Image component to display the user's avatar.")]
+  [SerializeField] private Image _userAvatarImage;
+
+  public override IEnumerator OnLoad()
   {
-    _canvasGroup.alpha = 0f;
+    Tween loadingTween = _screenManager.ShowLoadingScene();
+    loadingTween.Play();
+
+    AsyncOperation operation = ApiClient.Instance.GetUserByIdAsync("1", OnLoadDataSuccess, OnLoadDataFailure);
+    yield return operation;
+
+    Sequence inTransition = DOTween.Sequence();
+    inTransition.Join(_screenManager.HideLoadingScene());
+    inTransition.Join(AnimateLoad());
+
+    yield return inTransition.WaitForCompletion();
   }
 
-  
+  public override IEnumerator OnUnload()
+  {
+    Sequence outTransition = DOTween.Sequence();
+    outTransition.Join(AnimateUnload());
 
-  public override Tween AnimateLoad()
+    yield return outTransition.WaitForCompletion();
+  }
+
+  protected override Tween AnimateLoad()
   {
     AudioManager.Instance.PlayMusic(AudioMusicEnum.MainMenuMusic);
 
@@ -28,10 +55,34 @@ public class MainMenuScreen : BaseScreen
       .Join(DOVirtual.Float(0f, 1f, _fadeInDuration, v => AudioManager.Instance.SetMusicVolume(v)));
   }
 
-  public override Tween AnimateUnload()
+  protected override Tween AnimateUnload()
   {
     return DOTween.Sequence()
       .Join(_canvasGroup.DOFade(0f, _fadeOutDuration))
       .Join(DOVirtual.Float(1f, 0f, _fadeOutDuration, v => AudioManager.Instance.SetMusicVolume(v)));
+  }
+
+  private void OnLoadDataSuccess(UserData userData)
+  {
+    if (userData == null)
+    {
+      Debug.LogWarning("MainMenuScreen: User data is null. Cannot set user information on the UI.");
+      return;
+    }
+
+    _userNameText.text = userData.Name;
+    _userIDText.text = $"ID: {userData.Id}";
+
+    StartCoroutine(ApiClient.Instance.DownloadImage(userData.AvatarUrl, texture =>
+    {
+      _userAvatarImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+    }));
+
+    Debug.Log($"MainMenuScreen: Successfully loaded user data. User ID: {userData.Id}, Name: {userData.Name}, Avatar URL: {userData.AvatarUrl}");
+  }
+
+  private void OnLoadDataFailure(string error)
+  {
+    Debug.LogError($"MainMenuScreen: Failed to load user data. Error: {error}");
   }
 }

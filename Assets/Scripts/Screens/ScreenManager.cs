@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.Collections.Generic;
-using System.Collections;
+using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public enum ScreenName
@@ -13,81 +13,69 @@ public enum ScreenName
 [Serializable]
 public class ScreenData
 {
-  public ScreenName ScreenName;
-  public BaseScreen Screen;
+  public ScreenName Name;
+  public Screen Screen;
 }
 
 public class ScreenManager : MonoBehaviour
 {
-  [SerializeField] private ScreenData[] _scenes;
-  [SerializeField] private BaseScreen _loadingScreen;
-  private Dictionary<ScreenName, BaseScreen> _screenDictionary;
-
-  private BaseScreen _currentScreen;
+  [SerializeField] private ScreenData[] screenDatas;
+  [SerializeField] private LoadingScreen _loadingScreen;
+  private Dictionary<ScreenName, Screen> _screenDictionary;
 
   private void Awake()
   {
     _screenDictionary = new();
 
-    foreach (var screenData in _scenes)
+    foreach (ScreenData data in screenDatas)
     {
-      if (_screenDictionary.ContainsKey(screenData.ScreenName))
+      if (_screenDictionary.ContainsKey(data.Name))
       {
-        Debug.LogWarning($"Duplicate screen name detected: {screenData.ScreenName}. Skipping this entry.");
+        Debug.LogWarning($"Duplicate screen name detected: {data.Name}. Skipping this entry.");
         continue;
       }
 
-      _screenDictionary.Add(screenData.ScreenName, screenData.Screen);
+      Screen screen = data.Screen;
+      screen.Initialize(this);
+      _screenDictionary.Add(data.Name, screen);
     }
   }
 
   private void Start()
   {
-    // Debug.Log("ScreenLoader: Start called. Loading MainMenuScreen.");
-    // StartCoroutine(SwitchScreen(ScreenName.MainMenuScreen));
+    OpenScreen(ScreenName.MainMenuScreen);
   }
 
-  private void Update()
+  public Tween ShowLoadingScene()
   {
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
-      Debug.Log("Space key pressed. Switching to MainMenuScreen.");
-      StartCoroutine(SwitchScreen(ScreenName.MainMenuScreen));
-    }
+    return _loadingScreen.AnimateLoad();
   }
 
-  public IEnumerator SwitchScreen(ScreenName screenName)
+  public Tween HideLoadingScene()
   {
-    if (!_screenDictionary.TryGetValue(screenName, out var newScreen))
+    return _loadingScreen.AnimateUnload();
+  }
+
+  public void OpenScreen(ScreenName screenName)
+  {
+    if (!_screenDictionary.TryGetValue(screenName, out var screen))
     {
       Debug.LogError($"Screen '{screenName}' not found in the screen dictionary.");
-      yield break;
+      return;
     }
 
-    Sequence inTransition = DOTween.Sequence();
-    if (_currentScreen != null) inTransition.Join(_currentScreen.AnimateUnload());
-    inTransition.Join(_loadingScreen.AnimateLoad());
-    yield return inTransition.WaitForCompletion();
-
-    yield return ApiClient.Instance.GetUserByIdAsync("1", OnLoadDataSuccess, OnLoadDataFailure);
-
-    _currentScreen = newScreen;
-
-    Sequence outTransition = DOTween.Sequence();
-    outTransition.Join(_loadingScreen.AnimateUnload());
-    outTransition.Join(_currentScreen.AnimateLoad());
-
-    yield return outTransition.WaitForCompletion();
+    StartCoroutine(screen.OnLoad());
   }
 
-  private void OnLoadDataSuccess(UserData userData)
+  public void CloseScreen(ScreenName screenName)
   {
-    Debug.Log($"User ID: {userData.Id}, Name: {userData.Name}, Avatar URL: {userData.AvatarUrl}");
-  }
+    if (!_screenDictionary.TryGetValue(screenName, out var screen))
+    {
+      Debug.LogError($"Screen '{screenName}' not found in the screen dictionary.");
+      return;
+    }
 
-  private void OnLoadDataFailure(string error)
-  {
-    Debug.LogError($"Failed to load data: {error}");
+    screen.OnUnload();
   }
 
   public void Exit()

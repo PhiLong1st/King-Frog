@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Collections;
+using DG.Tweening;
 
-public class LoadingScene : BaseScene
+public class LoadingScene : BaseScreen
 {
   [Header("UI References")]
   [Tooltip("Slider component representing the loading progress.")]
@@ -52,46 +52,23 @@ public class LoadingScene : BaseScene
 
   private void Update()
   {
-    // if (Input.GetKeyDown(KeyCode.Space))
-    // {
-    //   StartCoroutine(AnimateLoad());
-    // }
-
-    // if (Input.GetKeyDown(KeyCode.Escape))
-    // {
-    //   StartCoroutine(AnimateUnload());
-    // }
-
     UpdateSlider();
     UpdatePercentageText();
     UpdateLoadingText();
   }
 
-  public override IEnumerator AnimateLoad()
+  public override Tween AnimateLoad()
   {
     ResetState();
-
-    IEnumerator fadeInCoroutine = AnimationUtils.FadeAnimation(0f, 1f, _fadeInDuration, alpha =>
-    {
-      _loadingSceneCanvasGroup.alpha = alpha;
-    });
-
-    yield return StartCoroutine(fadeInCoroutine);
+    return _loadingSceneCanvasGroup.DOFade(1f, _fadeInDuration);
   }
 
-  public override IEnumerator AnimateUnload()
+  public override Tween AnimateUnload()
   {
     _isLoadingComplete = true;
-
-    WaitForSeconds waitBeforeFadeOut = new WaitForSeconds(_waitBeforeFadeOutDuration);
-    yield return waitBeforeFadeOut;
-
-    IEnumerator fadeOutCoroutine = AnimationUtils.FadeAnimation(1f, 0f, _fadeOutDuration, alpha =>
-    {
-      _loadingSceneCanvasGroup.alpha = alpha;
-    });
-
-    yield return StartCoroutine(fadeOutCoroutine);
+    return DOTween.Sequence()
+      .AppendInterval(_waitBeforeFadeOutDuration)
+      .Append(_loadingSceneCanvasGroup.DOFade(0f, _fadeOutDuration));
   }
 
   private void ResetState()

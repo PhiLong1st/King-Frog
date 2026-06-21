@@ -1,9 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
+using DG.Tweening;
 
 [RequireComponent(typeof(Canvas))]
-public abstract class BaseScene : MonoBehaviour
+public abstract class BaseScreen : MonoBehaviour
 {
   private Canvas _canvas;
 
@@ -30,7 +29,7 @@ public abstract class BaseScene : MonoBehaviour
     IsReady = isReady;
   }
 
-  public abstract IEnumerator AnimateLoad();
+  public abstract Tween AnimateLoad();
 
-  public abstract IEnumerator AnimateUnload();
+  public abstract Tween AnimateUnload();
 }

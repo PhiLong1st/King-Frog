@@ -2,6 +2,14 @@ using System;
 using System.Collections;
 using UnityEngine;
 
+public enum Direction
+{
+  Up,
+  Down,
+  Left,
+  Right
+}
+
 public static class AnimationUtils
 {
   public static IEnumerator FadeAnimation(float startAlpha, float targetAlpha, float duration, Action<float> onUpdate)
@@ -18,5 +26,16 @@ public static class AnimationUtils
     }
 
     onUpdate?.Invoke(targetAlpha);
+  }
+
+  public static IEnumerator Slide(RectTransform target, Vector2 startPosition, Vector2 endPosition, float duration)
+  {
+    float elapsedTime = 0f;
+    while (elapsedTime < duration)
+    {
+      elapsedTime += Time.deltaTime;
+      target.anchoredPosition = Vector2.Lerp(startPosition, endPosition, elapsedTime / duration);
+      yield return null;
+    }
   }
 }

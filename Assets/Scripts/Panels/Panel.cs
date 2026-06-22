@@ -1,27 +1,35 @@
 using UnityEngine;
-using UnityEngine.UI;
+using System;
 
-public class Panel : MonoBehaviour
+[RequireComponent(typeof(Canvas))]
+public abstract class Panel : MonoBehaviour
 {
-  [SerializeField] private bool _shouldPause;
+  public Action OnPanelShow;
+  public Action OnPanelHide;
 
-  public void Show()
+  protected RectTransform rectTransform;
+  protected Vector2 _originalPosition;
+
+
+  private void Awake()
   {
-    if (_shouldPause)
-    {
-      Time.timeScale = 0f;
-    }
-
-    gameObject.SetActive(true);
+    rectTransform = GetComponent<RectTransform>();
+    _originalPosition = rectTransform.anchoredPosition;
   }
 
-  public void Hide()
+  public void ShowPanel()
   {
-    if (_shouldPause)
-    {
-      Time.timeScale = 1f;
-    }
-
-    gameObject.SetActive(false);
+    OnShow();
+    OnPanelShow?.Invoke();
   }
+
+  public void HidePanel()
+  {
+    OnHide();
+    OnPanelHide?.Invoke();
+  }
+
+  protected abstract void OnShow();
+
+  protected abstract void OnHide();
 }

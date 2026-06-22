@@ -1,7 +1,9 @@
-using UnityEngine;
 using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Canvas))]
+[RequireComponent(typeof(GraphicRaycaster))]
 public abstract class Panel : MonoBehaviour
 {
   public Action OnPanelShow;
@@ -11,7 +13,7 @@ public abstract class Panel : MonoBehaviour
   protected Vector2 _originalPosition;
 
 
-  private void Awake()
+  protected virtual void Awake()
   {
     rectTransform = GetComponent<RectTransform>();
     _originalPosition = rectTransform.anchoredPosition;

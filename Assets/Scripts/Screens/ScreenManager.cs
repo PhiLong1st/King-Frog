@@ -16,13 +16,15 @@ public class ScreenData
   public Screen Screen;
 }
 
-public class ScreenManager : MonoBehaviour
+public class ScreenManager : Singleton<ScreenManager>
 {
   [SerializeField] private ScreenData[] screenDatas;
   private Dictionary<ScreenName, Screen> _screenDictionary;
 
-  private void Awake()
+  protected override void Awake()
   {
+    base.Awake();
+
     _screenDictionary = new();
 
     foreach (ScreenData data in screenDatas)

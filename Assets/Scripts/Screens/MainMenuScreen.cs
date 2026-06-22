@@ -14,22 +14,6 @@ public class MainMenuScreen : Screen
   [Header("Background Fade Settings")]
   [SerializeField] private CanvasGroup _backgroundCanvasGroup;
 
-  public void OnPlayButtonClicked()
-  {
-    StartCoroutine(OnUnload());
-    _screenManager.OpenScreen(ScreenName.GameplayScreen);
-  }
-
-  public void OnSettingsButtonClicked()
-  {
-    // Implement settings button functionality here
-  }
-
-  public void OnExitButtonClicked()
-  {
-    _screenManager.Exit();
-  }
-
   public override IEnumerator OnLoad()
   {
     AsyncOperation operation = ApiClient.Instance.GetUserByIdAsync("1");
@@ -51,8 +35,9 @@ public class MainMenuScreen : Screen
 
   protected override Tween AnimateLoad()
   {
-    AudioManager.Instance.PlayMusic(AudioMusicEnum.MainMenuMusic);
     _backgroundCanvasGroup.alpha = 1f;
+    AudioManager.Instance.PlayMusic(AudioMusicEnum.MainMenuMusic);
+    PanelManager.Instance.OpenPanel(PanelName.MainMenuPanel);
 
     return DOTween.Sequence()
       .Join(_canvasGroup.DOFade(1f, _fadeInDuration))
@@ -61,8 +46,9 @@ public class MainMenuScreen : Screen
 
   protected override Tween AnimateUnload()
   {
+    PanelManager.Instance.ClosePanel(PanelName.MainMenuPanel);
+
     return DOTween.Sequence()
-      .Join(_canvasGroup.DOFade(0f, _fadeOutDuration))
       .Join(_backgroundCanvasGroup.DOFade(0f, _fadeOutDuration))
       .Join(DOVirtual.Float(1f, 0f, _fadeOutDuration, v => AudioManager.Instance.SetMusicVolume(v)));
   }

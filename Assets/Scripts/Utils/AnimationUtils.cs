@@ -2,14 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public enum Direction
-{
-  Up,
-  Down,
-  Left,
-  Right
-}
-
 public static class AnimationUtils
 {
   public static IEnumerator FadeAnimation(float startAlpha, float targetAlpha, float duration, Action<float> onUpdate)

@@ -424,10 +424,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Loading Scene
       objectReference: {fileID: 0}
-    - target: {fileID: 8309559954703368869, guid: 66d8d8f2d46d6d421806f6f68c87ce64, type: 3}
-      propertyPath: _minDuration
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -448,6 +444,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1949511394}
   - component: {fileID: 1949511393}
+  - component: {fileID: 1949511392}
   - component: {fileID: 1949511395}
   m_Layer: 0
   m_Name: Main Camera
@@ -456,6 +453,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!81 &1949511392
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949511391}
+  m_Enabled: 1
 --- !u!20 &1949511393
 Camera:
   m_ObjectHideFlags: 0

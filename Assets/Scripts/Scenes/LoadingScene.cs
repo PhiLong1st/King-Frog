@@ -1,10 +1,11 @@
-using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 using TMPro;
 using DG.Tweening;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
-public class LoadingScreen : MonoBehaviour
+public class LoadingScene : Singleton<LoadingScene>
 {
   [Header("UI References")]
   [Tooltip("Slider component representing the loading progress.")]
@@ -33,11 +34,9 @@ public class LoadingScreen : MonoBehaviour
   [Tooltip("Time in seconds for the fade-out.")]
   [SerializeField] private float _fadeOutDuration;
 
-  [Tooltip("Time in seconds for the fade-in.")]
-  [SerializeField] private float _fadeInDuration;
-
-  [Tooltip("Time in seconds to wait before starting the fade-out.")]
-  [SerializeField] private float _waitBeforeFadeOutDuration;
+  [Header("Duration Settings")]
+  [Tooltip("Minimum time in seconds the loading scene must be shown before transitioning.")]
+  [SerializeField] private float _minDuration = 4f;
 
   private float _timeElapsed;
   private int _currentIndex;
@@ -45,9 +44,16 @@ public class LoadingScreen : MonoBehaviour
   private readonly string[] _animatedLoadingText = { "Loading", "Loading.", "Loading..", "Loading..." };
   private bool _isLoadingComplete;
 
-  private void Awake()
+  protected override void Awake()
   {
+    base.Awake();
     _slider ??= GetComponentInChildren<Slider>();
+    InitState();
+  }
+
+  private IEnumerator Start()
+  {
+    yield return StartCoroutine(TransitionToMainMenu());
   }
 
   private void Update()
@@ -57,23 +63,26 @@ public class LoadingScreen : MonoBehaviour
     UpdateLoadingText();
   }
 
-  public Tween AnimateLoad()
+  private IEnumerator TransitionToMainMenu()
   {
-    ResetState();
-    Tween fadeInTween = _loadingSceneCanvasGroup.DOFade(1f, _fadeInDuration);
-    return fadeInTween;
-  }
+    float startTime = Time.time;
 
-  public Tween AnimateUnload()
-  {
+    AsyncOperation mainMenuLoad = SceneManager.LoadSceneAsync(SceneConstant.GameScene, LoadSceneMode.Additive);
+    mainMenuLoad.allowSceneActivation = false;
+
+    while (Time.time - startTime < _minDuration || mainMenuLoad.progress < 0.9f)
+    {
+      yield return null;
+    }
+
     _isLoadingComplete = true;
+    mainMenuLoad.allowSceneActivation = true;
 
-    return DOTween.Sequence()
-      .AppendInterval(_waitBeforeFadeOutDuration)
-      .Append(_loadingSceneCanvasGroup.DOFade(0f, _fadeOutDuration));
+    yield return _loadingSceneCanvasGroup.DOFade(0f, _fadeOutDuration).WaitForCompletion();
+    SceneManager.UnloadSceneAsync(SceneConstant.LoadingScene);
   }
 
-  private void ResetState()
+  private void InitState()
   {
     _currentIndex = 0;
     _targetProgress = _progressValues[_currentIndex];
@@ -82,7 +91,6 @@ public class LoadingScreen : MonoBehaviour
     _slider.value = 0f;
     _loadingText.text = "Loading";
     _percentageText.text = "0.0%";
-    _loadingSceneCanvasGroup.alpha = 0f;
   }
 
   private void UpdatePercentageText()
@@ -102,9 +110,7 @@ public class LoadingScreen : MonoBehaviour
     _timeElapsed += Time.deltaTime;
 
     if (_timeElapsed < _timeThreshold)
-    {
       return;
-    }
 
     _timeElapsed -= _timeThreshold;
     _currentIndex = Mathf.Min(_currentIndex + 1, _progressValues.Length - 1);

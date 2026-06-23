@@ -2,11 +2,9 @@ using UnityEngine;
 
 public static class AnimationConstants
 {
-  public const string IdleTrigger = "idle";
   public const string JumpChargeTrigger = "jumpCharge";
   public const string JumpTrigger = "jump";
   public const string FallTrigger = "fall";
-  public const string LandTrigger = "land";
 }
 
 [RequireComponent(typeof(Animator))]

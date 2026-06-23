@@ -16,6 +16,7 @@ public class JumpState : IState
 
   public void OnEnter()
   {
+    _player.PlayJumpSound();
     _player.ShowAnimation(AnimationConstants.JumpTrigger);
 
     float jumpForce = CalculateJumpForce();
@@ -83,9 +84,9 @@ public class JumpState : IState
 
   public void OnExit()
   {
+    _player.PlayLandSound();
     _player.StopMovement();
     _player.OnPlayerCollision -= HandleCollision;
-    // _player.HideAnimation(AnimationConstants.JumpTrigger);
     _player.HideAnimation(AnimationConstants.FallTrigger);
   }
 }

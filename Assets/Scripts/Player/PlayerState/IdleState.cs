@@ -14,7 +14,6 @@ public class IdleState : IState
 
   public void OnEnter()
   {
-    _player.ShowAnimation(AnimationConstants.IdleTrigger);
   }
 
   public void FixedUpdate()
@@ -65,6 +64,5 @@ public class IdleState : IState
 
   public void OnExit()
   {
-    _player.HideAnimation(AnimationConstants.IdleTrigger);
   }
 }

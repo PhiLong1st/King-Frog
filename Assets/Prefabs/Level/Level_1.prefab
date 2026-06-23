@@ -4387,11 +4387,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1615936311059948123, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.38
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 1615936311059948123, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.8
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 1615936311059948123, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4425,18 +4425,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1615936311059948123, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1794599211822370471, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
-      propertyPath: m_SortingLayer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1794599211822370471, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 918085633
-      objectReference: {fileID: 0}
+    - target: {fileID: 3717443051977578266, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
+      propertyPath: _frogSound
+      value: 
+      objectReference: {fileID: 2201416394395013797}
     - target: {fileID: 8654684513155454100, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
       propertyPath: m_Name
       value: Player
@@ -4446,6 +4438,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
+--- !u!114 &2201416394395013797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3629841477428933077, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}
+  m_PrefabInstance: {fileID: 3229865002785809264}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d727ffc1e1be03375b9d7f33c2c9a155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FrogSound
 --- !u!4 &4232887327264964907 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1615936311059948123, guid: 06a08b5e13270eecf91bb73c6fe9ee20, type: 3}

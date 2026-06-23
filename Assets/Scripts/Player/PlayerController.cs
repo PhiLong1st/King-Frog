@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour
   [SerializeField] private bool _isGrounded;
   [SerializeField] private bool _isFacingRight;
 
+  [Header("Audio")]
+  [SerializeField] private FrogSound _frogSound;
+
   public PlayerInput PlayerInput => _playerInput;
   public JumpConfig JumpConfig => _jumpConfig;
   public bool IsGrounded => _isGrounded;
@@ -95,5 +98,15 @@ public class PlayerController : MonoBehaviour
   public void StopMovement()
   {
     _rigidbody.linearVelocity = Vector2.zero;
+  }
+
+  public void PlayJumpSound()
+  {
+    _frogSound.PlayRandomSound();
+  }
+
+  public void PlayLandSound()
+  {
+    _frogSound.PlayRandomSound();
   }
 }

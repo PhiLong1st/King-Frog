@@ -3,7 +3,10 @@ using UnityEngine;
 
 public enum AudioSFXEnum
 {
-  LoadDone,
+  ButtonClick,
+  KeyCollected,
+  GameWin,
+  GameOver,
 }
 
 public enum AudioMusicEnum

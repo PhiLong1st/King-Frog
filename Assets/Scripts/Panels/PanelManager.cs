@@ -8,6 +8,8 @@ public enum PanelName
   MainMenuPanel,
   SettingPanel,
   LevelPanel,
+  GameWinPanel,
+  GameOverPanel,
 }
 
 [Serializable]

@@ -32,7 +32,11 @@ public class PlayerController : MonoBehaviour
   private Vector2 _lastJumpForce;
   public Vector2 LastJumpForce => _lastJumpForce;
 
+  private bool _hasKey;
+  public bool HasKey => _hasKey;
+
   public Action<Collision2D> OnPlayerCollision;
+  public Action OnPlayerDead;
 
   private void Awake()
   {
@@ -76,6 +80,39 @@ public class PlayerController : MonoBehaviour
     {
       _isGrounded = true;
     }
+
+    if (collision.gameObject.CompareTag(TagConstant.DeadZone))
+    {
+      OnPlayerDead?.Invoke();
+    }
+  }
+
+  private void OnTriggerEnter2D(Collider2D collision)
+  {
+    if (collision.gameObject.CompareTag(TagConstant.Key))
+    {
+      _hasKey = true;
+      collision.gameObject.SetActive(false);
+    }
+
+    if (collision.gameObject.CompareTag(TagConstant.Chest))
+    {
+      if (!_hasKey)
+      {
+        Debug.Log("Player does not have the key and cannot open the chest!");
+        return;
+      }
+
+      Chest chest = collision.gameObject.GetComponent<Chest>();
+      if (chest == null)
+      {
+        Debug.LogError("Chest component not found on the collided object!");
+        return;
+      }
+
+      chest.OpenChest();
+      Debug.Log("Player has the key and can open the chest!");
+    }
   }
 
   public void Jump(Vector2 jumpVelocity)
@@ -108,5 +145,13 @@ public class PlayerController : MonoBehaviour
   public void PlayLandSound()
   {
     _frogSound.PlayRandomSound();
+  }
+
+  public void Reset()
+  {
+    _hasKey = false;
+    _isGrounded = false;
+    _isFacingRight = true;
+    _lastJumpForce = Vector2.zero;
   }
 }

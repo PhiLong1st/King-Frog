@@ -51,6 +51,12 @@ MonoBehaviour:
   _audioSFXClips:
   - key: 0
     clip: {fileID: 8300000, guid: bf3986364f656df59adbdcee62ce57fa, type: 3}
+  - key: 1
+    clip: {fileID: 8300000, guid: bf3986364f656df59adbdcee62ce57fa, type: 3}
+  - key: 2
+    clip: {fileID: 8300000, guid: bf3986364f656df59adbdcee62ce57fa, type: 3}
+  - key: 3
+    clip: {fileID: 8300000, guid: bf3986364f656df59adbdcee62ce57fa, type: 3}
   _audioMusicClips:
   - key: 0
     clip: {fileID: 8300000, guid: 134669238b6cce1f68d454d5cf660fac, type: 3}

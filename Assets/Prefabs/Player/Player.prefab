@@ -401,7 +401,7 @@ MonoBehaviour:
   _jumpConfig: {fileID: 11400000, guid: c25afe9bf5b07a78eb0ed21bca04b397, type: 2}
   _isGrounded: 0
   _isFacingRight: 0
-  _frogSound: {fileID: 0}
+  _frogSound: {fileID: 3629841477428933077}
 --- !u!114 &4623650640021577939
 MonoBehaviour:
   m_ObjectHideFlags: 0
